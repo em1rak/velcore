@@ -1,0 +1,105 @@
+@font-face {
+  font-family: 'Asgard Trial-Wide Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: url(../font/AsgardTrial-WideBold.ttf) format(truetype);
+  }
+
+@font-face {
+  font-family: 'Asgard Trial-Wide Medium';
+  font-style: normal;
+  font-weight: 500;
+  src: url(../font/AsgardTrial-WideMedium.ttf) format(truetype);
+  }
+
+@font-face {
+  font-family: 'Asgard Trial-Wide Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../font/AsgardTrial-WideRegular.ttf) format(truetype);
+  }
+
+@font-face {
+  font-family: 'Asgard Trial-Wide Xbold';
+  font-style: normal;
+  font-weight: 800;
+  src: url(../font/AsgardTrial-WideXbold.ttf) format(truetype);
+  }
+
+@font-face {
+  font-family: 'Asgard-Fit Light';
+  font-style: normal;
+  font-weight: 300;
+  src: url(../font/Asgard-FitLight.ttf) format(truetype);
+  }
+
+@font-face {
+  font-family: 'Asgard-Wide Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: url(../font/Asgard-WideBold.ttf) format(truetype);
+  }
+
+@font-face {
+  font-family: 'Asgard-Wide Medium';
+  font-style: normal;
+  font-weight: 500;
+  src: url(../font/Asgard-WideMedium.ttf) format(truetype);
+  }
+
+@font-face {
+  font-family: 'Asgard-Wide Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../font/Asgard-WideRegular.ttf) format(truetype);
+  }
+
+@font-face {
+  font-family: 'Asgard-Wide Xbold';
+  font-style: normal;
+  font-weight: 800;
+  src: url(../font/Asgard-WideXbold.ttf) format(truetype);
+  }
+
+@font-face {
+  font-family: 'Neue Haas Unica W1G Medium-Regular';
+  font-style: normal;
+  font-weight: 500;
+  src: url(../font/Neue Haas Unica W1G Medium.ttf) format(truetype);
+  }
+
+@font-face {
+  font-family: 'SF Pro Display-Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: url(../font/SF-Pro-Display-Bold.otf) format('opentype'), url(../font/SF-Pro-Display-Bold.otf) format('truetype'), url(../font/SF-Pro-Display-Bold.otf);
+}
+
+@font-face {
+  font-family: 'SF Pro Display-Light';
+  font-style: normal;
+  font-weight: 300;
+  src: url(../font/SF-Pro-Display-Light.otf) format('opentype'), url(../font/SF-Pro-Display-Light.otf) format('truetype'), url(../font/SF-Pro-Display-Light.otf);
+}
+
+@font-face {
+  font-family: 'SF Pro Display-Medium';
+  font-style: normal;
+  font-weight: 500;
+  src: url(../font/SF-Pro-Display-Medium.otf) format('opentype'), url(../font/SF-Pro-Display-Medium.otf) format('truetype'), url(../font/SF-Pro-Display-Medium.otf);
+}
+
+@font-face {
+  font-family: 'SF Pro Display-Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../font/SF-Pro-Display-Regular.otf) format('opentype'), url(../font/SF-Pro-Display-Regular.otf) format('truetype'), url(../font/SF-Pro-Display-Regular.otf);
+}
+
+@font-face {
+  font-family: 'SF Pro Display-Semibold';
+  font-style: normal;
+  font-weight: 600;
+  src: url(../font/SF-Pro-Display-Semibold.otf) format('opentype'), url(../font/SF-Pro-Display-Semibold.otf) format('truetype'), url(../font/SF-Pro-Display-Semibold.otf);
+}
+
