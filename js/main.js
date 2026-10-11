@@ -550,11 +550,13 @@
 
           document.querySelectorAll('.form-select-dropdown.is-open').forEach((d) => d.classList.remove('is-open'));
           document.querySelectorAll('.form-select-trigger.is-open').forEach((t) => t.classList.remove('is-open'));
+          document.querySelectorAll('.lead-form.is-dropdown-open').forEach((f) => f.classList.remove('is-dropdown-open'));
 
           if (!isOpen) {
             selectDropdown.classList.add('is-open');
             selectTrigger.classList.add('is-open');
             selectTrigger.setAttribute('aria-expanded', 'true');
+            form.classList.add('is-dropdown-open');
           }
         });
 
@@ -571,6 +573,7 @@
             selectDropdown.classList.remove('is-open');
             selectTrigger.classList.remove('is-open');
             selectTrigger.setAttribute('aria-expanded', 'false');
+            form.classList.remove('is-dropdown-open');
           });
         });
 
@@ -579,6 +582,7 @@
             selectDropdown.classList.remove('is-open');
             selectTrigger.classList.remove('is-open');
             selectTrigger.setAttribute('aria-expanded', 'false');
+            form.classList.remove('is-dropdown-open');
           }
         });
 
@@ -587,6 +591,7 @@
             selectDropdown.classList.remove('is-open');
             selectTrigger.classList.remove('is-open');
             selectTrigger.setAttribute('aria-expanded', 'false');
+            form.classList.remove('is-dropdown-open');
           }
         });
       }
