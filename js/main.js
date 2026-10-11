@@ -289,7 +289,26 @@
         if (inst.outputs.royalty) inst.outputs.royalty.textContent = formatRub(fin.royalty, true);
         if (inst.outputs.tax) inst.outputs.tax.textContent = formatRub(fin.tax, true);
         if (inst.outputs.maintenance) inst.outputs.maintenance.textContent = formatRub(fin.maintenance, true);
-        if (inst.outputs.profit) inst.outputs.profit.textContent = formatRub(fin.netProfit);
+        if (inst.outputs.profit) {
+          inst.outputs.profit.textContent = formatRub(fin.netProfit);
+          if (inst.type === 'mobile') {
+            const digits = String(Math.abs(Math.round(fin.netProfit))).length;
+            if (digits >= 8) {
+              inst.outputs.profit.style.fontSize = '21px';
+            } else if (digits >= 7) {
+              inst.outputs.profit.style.fontSize = '23px';
+            } else {
+              inst.outputs.profit.style.fontSize = '25px';
+            }
+          } else if (inst.type === 'desktop') {
+            const digits = String(Math.abs(Math.round(fin.netProfit))).length;
+            if (digits >= 8) {
+              inst.outputs.profit.style.fontSize = '44px';
+            } else {
+              inst.outputs.profit.style.fontSize = '50px';
+            }
+          }
+        }
       });
     }
 
