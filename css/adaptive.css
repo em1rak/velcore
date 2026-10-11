@@ -1824,16 +1824,6 @@ body {
 .mobile-menu-brand {
   display: flex !important;
   align-items: center !important;
-  gap: 10px !important;
-}
-
-.mobile-menu-logo-icon {
-  width: 28px !important;
-  height: 28px !important;
-  background-image: url(../image/mobile/Group.svg) !important;
-  background-size: contain !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
 }
 
 .mobile-menu-brand-text {
@@ -1844,14 +1834,14 @@ body {
 
 .mobile-menu-brand-title {
   font-family: "Asgard-Wide Medium", sans-serif !important;
-  font-size: 15px !important;
+  font-size: 16px !important;
   color: #ffffff !important;
   letter-spacing: 0.04em !important;
 }
 
 .mobile-menu-brand-sub {
   font-family: "Asgard-Wide Regular", sans-serif !important;
-  font-size: 9.5px !important;
+  font-size: 10px !important;
   color: rgba(255, 255, 255, 0.55) !important;
   letter-spacing: 0.06em !important;
 }
@@ -1880,49 +1870,31 @@ body {
 .mobile-menu-nav {
   display: flex !important;
   flex-direction: column !important;
-  gap: 10px !important;
-  margin: 28px 0 !important;
+  gap: 22px !important;
+  margin: 36px 0 !important;
 }
 
 .mobile-menu-link {
-  display: flex !important;
-  flex-direction: column !important;
+  display: block !important;
+  width: fit-content !important;
   text-decoration: none !important;
-  padding: 13px 16px !important;
-  border-radius: 12px !important;
-  background: rgba(255, 255, 255, 0.03) !important;
-  border: 1px solid rgba(255, 255, 255, 0.06) !important;
-  transition: all 0.2s ease !important;
+  padding: 4px 0 !important;
+  background: transparent !important;
+  border: none !important;
+  font-family: "Asgard-Wide Medium", sans-serif !important;
+  font-size: 26px !important;
+  color: #ffffff !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.02em !important;
+  transition: color 0.2s ease, transform 0.2s ease !important;
   -webkit-tap-highlight-color: transparent !important;
 }
 
 .mobile-menu-link:hover,
 .mobile-menu-link:active {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
   transform: translateX(4px) !important;
-}
-
-.mobile-menu-link-num {
-  font-family: "SF Pro Display-Bold", sans-serif !important;
-  font-size: 11px !important;
-  color: rgba(223, 158, 89, 0.9) !important;
-  letter-spacing: 0.04em !important;
-  margin-bottom: 3px !important;
-}
-
-.mobile-menu-link-text {
-  font-family: "Asgard-Wide Medium", sans-serif !important;
-  font-size: 20px !important;
-  color: #ffffff !important;
-  line-height: 1.1 !important;
-}
-
-.mobile-menu-link-desc {
-  font-family: "SF Pro Display-Regular", sans-serif !important;
-  font-size: 12px !important;
-  color: rgba(255, 255, 255, 0.45) !important;
-  margin-top: 3px !important;
+  background: transparent !important;
 }
 
 .mobile-menu-footer {
@@ -1949,40 +1921,16 @@ body {
   font-size: 13.5px !important;
   font-weight: 700 !important;
   letter-spacing: 0.02em !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.15) !important;
+  transition: transform 0.2s ease, opacity 0.2s ease !important;
+  box-shadow: none !important;
   -webkit-tap-highlight-color: transparent !important;
 }
 
 .mobile-menu-cta-btn:hover,
 .mobile-menu-cta-btn:active {
   transform: translateY(-2px) !important;
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25) !important;
-}
-
-.mobile-menu-tg-btn {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 8px !important;
-  width: 100% !important;
-  padding: 13px 20px !important;
-  box-sizing: border-box !important;
-  background: transparent !important;
-  color: rgba(255, 255, 255, 0.8) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-radius: 50px !important;
-  text-decoration: none !important;
-  font-family: "SF Pro Display-Regular", sans-serif !important;
-  font-size: 13px !important;
-  transition: all 0.2s ease !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-
-.mobile-menu-tg-btn:hover,
-.mobile-menu-tg-btn:active {
-  border-color: rgba(255, 255, 255, 0.5) !important;
-  color: #ffffff !important;
+  box-shadow: none !important;
+  opacity: 0.9 !important;
 }
 
 /* Burger Button Micro-interactions */
