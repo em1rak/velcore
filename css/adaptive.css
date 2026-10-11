@@ -1740,3 +1740,21 @@ body {
   color: #ffffff !important;
   transform: translateY(-2px) !important;
 }
+
+/* Interactive external link buttons ("Источник" & "Посмотреть") */
+.stat-link-btn {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: flex !important;
+  cursor: pointer !important;
+  transition: transform 0.18s ease, opacity 0.18s ease !important;
+}
+
+.stat-link-btn:hover {
+  opacity: 0.8 !important;
+  transform: translateY(-2px) !important;
+}
+
+.stat-link-btn:active {
+  transform: translateY(0px) scale(0.98) !important;
+}

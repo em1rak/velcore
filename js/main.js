@@ -475,35 +475,318 @@
    * Interactive Lead Application Form
    */
   function setupLeadForm() {
-    // Russian Phone Formatter (+7 (XXX) XXX-XX-XX)
-    function formatPhone(val) {
-      if (!val) return '';
-      let digits = val.replace(/\D/g, '');
-      if (digits.length === 0) return '';
+    // Enhanced Russian Phone Mask (+7 (XXX) XXX-XX-XX) with complete Backspace/Delete support
+    function setupPhoneMask(input, clearErrorCallback) {
+      if (!input) return;
 
-      // If user started with 8 or 7, strip the first digit
-      if (digits[0] === '8' || digits[0] === '7') {
-        digits = digits.substring(1);
+      let prevLocalDigits = '';
+
+      function extractLocalDigits(str) {
+        if (!str) return '';
+        let digits = str.replace(/\D/g, '');
+        if (digits.length === 0) return '';
+        if (digits[0] === '7' || digits[0] === '8') {
+          digits = digits.slice(1);
+        }
+        return digits.slice(0, 10);
       }
 
-      digits = digits.substring(0, 10);
+      function formatDigits(digits) {
+        if (!digits || digits.length === 0) return '';
+        let res = '+7 (';
+        res += digits.slice(0, Math.min(3, digits.length));
+        if (digits.length >= 3) {
+          res += ') ';
+        }
+        if (digits.length > 3) {
+          res += digits.slice(3, Math.min(6, digits.length));
+        }
+        if (digits.length >= 6) {
+          res += '-';
+        }
+        if (digits.length > 6) {
+          res += digits.slice(6, Math.min(8, digits.length));
+        }
+        if (digits.length >= 8) {
+          res += '-';
+        }
+        if (digits.length > 8) {
+          res += digits.slice(8, Math.min(10, digits.length));
+        }
+        return res;
+      }
 
-      let formatted = '+7 (';
-      if (digits.length > 0) {
-        formatted += digits.substring(0, 3);
+      function getCursorPosAfterDigits(formatted, k) {
+        if (k <= 0) return 4;
+        let digitCount = 0;
+        for (let i = 0; i < formatted.length; i++) {
+          if (i < 2) continue; // skip +7
+          if (/\d/.test(formatted[i])) {
+            digitCount++;
+            if (digitCount === k) return i + 1;
+          }
+        }
+        return formatted.length;
       }
-      if (digits.length >= 3) {
-        formatted += ') ' + digits.substring(3, 6);
-      } else if (digits.length > 0) {
-        return formatted;
+
+      function countLocalDigitsBefore(str, idx) {
+        const slice = str.slice(0, idx);
+        const allDigits = slice.replace(/\D/g, '');
+        if (allDigits.length === 0) return 0;
+        if (allDigits[0] === '7' || allDigits[0] === '8') {
+          return allDigits.length - 1;
+        }
+        return allDigits.length;
       }
-      if (digits.length >= 6) {
-        formatted += '-' + digits.substring(6, 8);
-      }
-      if (digits.length >= 8) {
-        formatted += '-' + digits.substring(8, 10);
-      }
-      return formatted;
+
+      input.addEventListener('keydown', (e) => {
+        // Allow navigation & standard control keys
+        if (
+          e.key === 'Tab' ||
+          e.key === 'ArrowLeft' ||
+          e.key === 'ArrowRight' ||
+          e.key === 'ArrowUp' ||
+          e.key === 'ArrowDown' ||
+          e.key === 'Home' ||
+          e.key === 'End' ||
+          e.ctrlKey ||
+          e.metaKey ||
+          e.altKey
+        ) {
+          return;
+        }
+
+        const val = input.value;
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        let localDigits = extractLocalDigits(val);
+
+        if (e.key === 'Backspace') {
+          e.preventDefault();
+
+          // Selection range deletion
+          if (start !== end) {
+            const digitsBeforeStart = countLocalDigitsBefore(val, start);
+            const digitsBeforeEnd = countLocalDigitsBefore(val, end);
+            localDigits = localDigits.slice(0, digitsBeforeStart) + localDigits.slice(digitsBeforeEnd);
+            if (localDigits.length === 0) {
+              input.value = '';
+              prevLocalDigits = '';
+            } else {
+              const formatted = formatDigits(localDigits);
+              input.value = formatted;
+              prevLocalDigits = localDigits;
+              const newPos = getCursorPosAfterDigits(formatted, digitsBeforeStart);
+              input.setSelectionRange(newPos, newPos);
+            }
+            if (clearErrorCallback) clearErrorCallback(input);
+            return;
+          }
+
+          // Single cursor Backspace
+          if (start <= 4) {
+            // At or before '+7 (': clear entire input
+            input.value = '';
+            prevLocalDigits = '';
+            if (clearErrorCallback) clearErrorCallback(input);
+            return;
+          }
+
+          const digitsBefore = countLocalDigitsBefore(val, start);
+          if (digitsBefore <= 0) {
+            input.value = '';
+            prevLocalDigits = '';
+            if (clearErrorCallback) clearErrorCallback(input);
+            return;
+          }
+
+          const removeIdx = digitsBefore - 1;
+          localDigits = localDigits.slice(0, removeIdx) + localDigits.slice(removeIdx + 1);
+
+          if (localDigits.length === 0) {
+            input.value = '';
+            prevLocalDigits = '';
+          } else {
+            const formatted = formatDigits(localDigits);
+            input.value = formatted;
+            prevLocalDigits = localDigits;
+            const newPos = getCursorPosAfterDigits(formatted, removeIdx);
+            input.setSelectionRange(newPos, newPos);
+          }
+          if (clearErrorCallback) clearErrorCallback(input);
+          return;
+        }
+
+        if (e.key === 'Delete') {
+          e.preventDefault();
+
+          if (start !== end) {
+            const digitsBeforeStart = countLocalDigitsBefore(val, start);
+            const digitsBeforeEnd = countLocalDigitsBefore(val, end);
+            localDigits = localDigits.slice(0, digitsBeforeStart) + localDigits.slice(digitsBeforeEnd);
+            if (localDigits.length === 0) {
+              input.value = '';
+              prevLocalDigits = '';
+            } else {
+              const formatted = formatDigits(localDigits);
+              input.value = formatted;
+              prevLocalDigits = localDigits;
+              const newPos = getCursorPosAfterDigits(formatted, digitsBeforeStart);
+              input.setSelectionRange(newPos, newPos);
+            }
+            if (clearErrorCallback) clearErrorCallback(input);
+            return;
+          }
+
+          const digitsBefore = countLocalDigitsBefore(val, start);
+          if (digitsBefore >= localDigits.length) {
+            return;
+          }
+
+          localDigits = localDigits.slice(0, digitsBefore) + localDigits.slice(digitsBefore + 1);
+          if (localDigits.length === 0) {
+            input.value = '';
+            prevLocalDigits = '';
+          } else {
+            const formatted = formatDigits(localDigits);
+            input.value = formatted;
+            prevLocalDigits = localDigits;
+            const newPos = getCursorPosAfterDigits(formatted, digitsBefore);
+            input.setSelectionRange(newPos, newPos);
+          }
+          if (clearErrorCallback) clearErrorCallback(input);
+          return;
+        }
+
+        if (/^\d$/.test(e.key)) {
+          e.preventDefault();
+
+          // Field is empty or only '+7 ('
+          if (!val || localDigits.length === 0) {
+            if (e.key === '7' || e.key === '8') {
+              input.value = '+7 (';
+              prevLocalDigits = '';
+              input.setSelectionRange(4, 4);
+              return;
+            }
+            localDigits = e.key;
+            const formatted = formatDigits(localDigits);
+            input.value = formatted;
+            prevLocalDigits = localDigits;
+            input.setSelectionRange(formatted.length, formatted.length);
+            if (clearErrorCallback) clearErrorCallback(input);
+            return;
+          }
+
+          // Non-empty field
+          const digitsBefore = countLocalDigitsBefore(val, start);
+          const digitsAfter = countLocalDigitsBefore(val, end);
+
+          if (start !== end) {
+            localDigits = localDigits.slice(0, digitsBefore) + e.key + localDigits.slice(digitsAfter);
+          } else {
+            if (localDigits.length >= 10 && digitsBefore >= 10) {
+              return;
+            }
+            localDigits = localDigits.slice(0, digitsBefore) + e.key + localDigits.slice(digitsBefore);
+          }
+
+          localDigits = localDigits.slice(0, 10);
+          const formatted = formatDigits(localDigits);
+          input.value = formatted;
+          prevLocalDigits = localDigits;
+          const newPos = getCursorPosAfterDigits(formatted, digitsBefore + 1);
+          input.setSelectionRange(newPos, newPos);
+          if (clearErrorCallback) clearErrorCallback(input);
+          return;
+        }
+
+        if (e.key === '+') {
+          e.preventDefault();
+          if (!val) {
+            input.value = '+7 (';
+            prevLocalDigits = '';
+            input.setSelectionRange(4, 4);
+          }
+          return;
+        }
+
+        // Block any other non-digit typing
+        if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+        }
+      });
+
+      input.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const pasted = (e.clipboardData || window.clipboardData).getData('text');
+        if (!pasted) return;
+
+        const digits = extractLocalDigits(pasted);
+        if (!digits) {
+          input.value = '';
+          prevLocalDigits = '';
+          return;
+        }
+
+        const formatted = formatDigits(digits);
+        input.value = formatted;
+        prevLocalDigits = digits;
+        input.setSelectionRange(formatted.length, formatted.length);
+        if (clearErrorCallback) clearErrorCallback(input);
+      });
+
+      input.addEventListener('input', (e) => {
+        let currentDigits = extractLocalDigits(input.value);
+
+        if (e.inputType === 'deleteContentBackward') {
+          if (currentDigits.length === prevLocalDigits.length && currentDigits.length > 0) {
+            currentDigits = currentDigits.slice(0, -1);
+          }
+        }
+
+        if (!currentDigits || currentDigits.length === 0) {
+          if (input.value !== '+7 (' && input.value !== '+7') {
+            input.value = '';
+            prevLocalDigits = '';
+          }
+          return;
+        }
+
+        const formatted = formatDigits(currentDigits);
+        input.value = formatted;
+        prevLocalDigits = currentDigits;
+        input.setSelectionRange(formatted.length, formatted.length);
+        if (clearErrorCallback) clearErrorCallback(input);
+      });
+
+      input.addEventListener('focus', () => {
+        if (!input.value) {
+          input.value = '+7 (';
+          prevLocalDigits = '';
+          setTimeout(() => {
+            if (input.value === '+7 (') {
+              input.setSelectionRange(4, 4);
+            }
+          }, 0);
+        }
+      });
+
+      input.addEventListener('click', () => {
+        if (input.value === '+7 (') {
+          input.setSelectionRange(4, 4);
+        } else if (input.selectionStart < 4 && input.selectionStart === input.selectionEnd) {
+          input.setSelectionRange(4, 4);
+        }
+      });
+
+      input.addEventListener('blur', () => {
+        const localDigits = extractLocalDigits(input.value);
+        if (!localDigits || localDigits.length === 0) {
+          input.value = '';
+          prevLocalDigits = '';
+        }
+      });
     }
 
     // Bind form controls for a specific form instance
@@ -524,25 +807,9 @@
       const fieldsContainer = form.querySelector('div[id^="3_"]');
       const resetBtn = form.querySelector('.success-reset-btn');
 
-
       // Phone Input Mask
       if (phoneInput) {
-        phoneInput.addEventListener('input', () => {
-          phoneInput.value = formatPhone(phoneInput.value);
-          clearError(phoneInput);
-        });
-
-        phoneInput.addEventListener('focus', () => {
-          if (!phoneInput.value) {
-            phoneInput.value = '+7 (';
-          }
-        });
-
-        phoneInput.addEventListener('blur', () => {
-          if (phoneInput.value === '+7 (' || phoneInput.value === '+7') {
-            phoneInput.value = '';
-          }
-        });
+        setupPhoneMask(phoneInput, clearError);
       }
 
       // Name Input
