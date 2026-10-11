@@ -101,7 +101,9 @@
     const mobileLinks = [
       { id: '3_476', key: 'calc' },
       { id: '3_645', key: 'form' },
-      { id: '3_682', key: 'form' }
+      { id: '3_682', key: 'form' },
+      { id: 'mobile-tariff-btn-2', key: 'form' },
+      { id: 'mobile-tariff-btn-3', key: 'form' }
     ];
 
     mobileLinks.forEach(({ id, key }) => {
@@ -1112,9 +1114,168 @@
     bindForm('mobile-lead-form');
   }
 
+  /**
+   * Mobile Tariffs Carousel / Slider with Swipe & 10s Auto-Advance
+   */
+  function setupMobileTariffsSlider() {
+    const slider = document.getElementById('mobile-tariffs-slider');
+    const track = document.getElementById('mobile-tariffs-track');
+    const pagination = document.getElementById('mobile-tariffs-pagination');
+    if (!slider || !track) return;
+
+    const slides = track.querySelectorAll('.mobile-tariff-slide');
+    const dots = pagination ? pagination.querySelectorAll('.mobile-tariff-dot') : [];
+    const totalSlides = slides.length;
+    if (totalSlides <= 1) return;
+
+    let currentIndex = 0;
+    let autoTimer = null;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+    let isSwiping = false;
+    let isVisible = true;
+
+    function updateSlider(animate = true) {
+      track.style.transition = animate ? 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
+      const offsetPercent = currentIndex * (100 / totalSlides);
+      track.style.transform = `translateX(-${offsetPercent}%)`;
+
+      dots.forEach((dot, idx) => {
+        if (idx === currentIndex) {
+          dot.classList.add('is-active');
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.classList.remove('is-active');
+          dot.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    function goToSlide(index, resetTimer = true) {
+      currentIndex = (index + totalSlides) % totalSlides;
+      updateSlider(true);
+      if (resetTimer) {
+        restartAutoTimer();
+      }
+    }
+
+    function startAutoTimer() {
+      clearAutoTimer();
+      if (!isVisible) return;
+      autoTimer = setInterval(() => {
+        goToSlide(currentIndex + 1, false);
+      }, 10000); // 10 seconds
+    }
+
+    function clearAutoTimer() {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    }
+
+    function restartAutoTimer() {
+      clearAutoTimer();
+      startAutoTimer();
+    }
+
+    // Touch events on slider
+    slider.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchEndX = touchStartX;
+      touchEndY = touchStartY;
+      isSwiping = true;
+      clearAutoTimer();
+    }, { passive: true });
+
+    slider.addEventListener('touchmove', (e) => {
+      if (!isSwiping) return;
+      touchEndX = e.touches[0].clientX;
+      touchEndY = e.touches[0].clientY;
+    }, { passive: true });
+
+    slider.addEventListener('touchend', (e) => {
+      if (!isSwiping) return;
+      isSwiping = false;
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+
+      // Only trigger horizontal swipe if horizontal movement is dominant and > 35px
+      if (Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY) * 0.7) {
+        if (deltaX < 0) {
+          // Swiped left -> next slide
+          goToSlide(currentIndex + 1, true);
+        } else {
+          // Swiped right -> prev slide
+          goToSlide(currentIndex - 1, true);
+        }
+      } else {
+        restartAutoTimer();
+      }
+    });
+
+    // Mouse drag support for desktop emulation
+    let mouseStartX = 0;
+    let isMouseDown = false;
+
+    slider.addEventListener('mousedown', (e) => {
+      isMouseDown = true;
+      mouseStartX = e.clientX;
+      clearAutoTimer();
+    });
+
+    window.addEventListener('mouseup', (e) => {
+      if (!isMouseDown) return;
+      isMouseDown = false;
+      const deltaX = e.clientX - mouseStartX;
+      if (Math.abs(deltaX) > 35) {
+        if (deltaX < 0) {
+          goToSlide(currentIndex + 1, true);
+        } else {
+          goToSlide(currentIndex - 1, true);
+        }
+      } else {
+        restartAutoTimer();
+      }
+    });
+
+    // Dots navigation
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        goToSlide(idx, true);
+      });
+    });
+
+    // IntersectionObserver to pause timer when slider is off-screen
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) {
+            restartAutoTimer();
+          } else {
+            clearAutoTimer();
+          }
+        });
+      }, { threshold: 0.15 });
+      observer.observe(slider);
+    } else {
+      startAutoTimer();
+    }
+
+    // Initial setup
+    updateSlider(false);
+    startAutoTimer();
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     setupNavigation();
     setupMobileBurger();
+    setupMobileTariffsSlider();
     setupCalculator();
     setupAccordion();
     setupLeadForm();

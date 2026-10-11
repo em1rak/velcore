@@ -731,6 +731,212 @@ body {
   justify-content: center !important;
 }
 
+/* ==========================================================================
+   Mobile Tariffs Horizontal Slider & Dark Tariff Cards
+   ========================================================================== */
+.mobile-tariffs-slider-container {
+  width: 400px !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  position: relative !important;
+  margin: 0 auto !important;
+  touch-action: pan-y !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.mobile-tariffs-track {
+  display: flex !important;
+  flex-direction: row !important;
+  width: 300% !important;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  will-change: transform !important;
+}
+
+.mobile-tariff-slide {
+  width: 33.333333% !important;
+  flex-shrink: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+.mobile-tariff-card {
+  width: 400px !important;
+  height: 704px !important;
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.mobile-tariff-card .text-3_657 {
+  width: auto !important;
+  max-width: 100% !important;
+  font-size: 42px !important;
+  white-space: normal !important;
+  text-align: center !important;
+  line-height: 1.1 !important;
+}
+
+.mobile-tariff-card .section-content-3_654 {
+  padding: 60px 24px 36px 24px !important;
+}
+
+.mobile-tariff-card--dark {
+  background-color: #111111 !important;
+  border: 1px solid #111111 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+}
+
+.mobile-tariff-card-content {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 60px 24px 36px 24px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.mobile-tariff-card-content--combo {
+  padding: 50px 24px 34px 24px !important;
+}
+
+.mobile-tariff-header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 24px !important;
+  width: 100% !important;
+}
+
+.mobile-tariff-title-light {
+  color: #f2f0ea !important;
+}
+
+.mobile-tariff-sub-light {
+  color: #f2f0ea !important;
+}
+
+.mobile-tariff-features {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+.mobile-tariff-card-content--combo .mobile-tariff-features {
+  gap: 9px !important;
+}
+
+.mobile-tariff-feature-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+.mobile-tariff-feature-check {
+  font-family: "Asgard-Wide Regular", sans-serif !important;
+  font-size: 20px !important;
+  color: #ffffff !important;
+  flex-shrink: 0 !important;
+  width: 20px !important;
+  text-align: center !important;
+  line-height: 1 !important;
+}
+
+.mobile-tariff-feature-text {
+  font-family: "SF Pro Display-Regular", sans-serif !important;
+  font-size: 19px !important;
+  color: #f2f0ea !important;
+  line-height: 1.25 !important;
+  text-align: left !important;
+}
+
+.mobile-tariff-card-content--combo .mobile-tariff-feature-text {
+  font-size: 17.5px !important;
+  line-height: 1.2 !important;
+}
+
+.mobile-tariff-btn {
+  width: 362px !important;
+  height: 85px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  user-select: none !important;
+  transition: transform 0.2s ease, opacity 0.2s ease !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.mobile-tariff-btn--light {
+  background-color: #f2f0ea !important;
+  color: #111111 !important;
+  font-family: "Asgard Trial-Wide Regular", sans-serif !important;
+  font-size: 20px !important;
+}
+
+.mobile-tariff-btn--light:hover,
+.mobile-tariff-btn--light:active {
+  transform: translateY(-2px) !important;
+  opacity: 0.92 !important;
+}
+
+.mobile-tariff-btn--light:active {
+  transform: scale(0.98) !important;
+}
+
+.section-3_682 {
+  cursor: pointer !important;
+  transition: transform 0.2s ease, opacity 0.2s ease !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.section-3_682:hover,
+.section-3_682:active {
+  transform: translateY(-2px) !important;
+  opacity: 0.92 !important;
+}
+
+.section-3_682:active {
+  transform: scale(0.98) !important;
+}
+
+/* Pagination Dots */
+.mobile-tariffs-pagination {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-top: 24px !important;
+  width: 100% !important;
+}
+
+.mobile-tariff-dot {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  background: rgba(17, 17, 17, 0.25) !important;
+  border: none !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.mobile-tariff-dot.is-active {
+  width: 28px !important;
+  border-radius: 12px !important;
+  background: #111111 !important;
+}
+
 .text-3_190,
 .text-3_644 {
   transition: color 0.15s ease !important;
