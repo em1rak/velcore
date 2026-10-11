@@ -1757,4 +1757,254 @@ body {
 
 .stat-link-btn:active {
   transform: translateY(0px) scale(0.98) !important;
-}
+}
+
+/* ==========================================================================
+   Mobile Burger Menu Drawer Overlay
+   ========================================================================== */
+.mobile-menu-drawer {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 999999 !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease !important;
+}
+
+.mobile-menu-drawer.is-open {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+.mobile-menu-backdrop {
+  position: absolute !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.65) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+}
+
+.mobile-menu-panel {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 360px !important;
+  height: 100% !important;
+  background: #111111 !important;
+  color: #ffffff !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  padding: 24px 20px 32px 20px !important;
+  box-sizing: border-box !important;
+  transform: translateX(100%) !important;
+  transition: transform 0.34s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+.mobile-menu-drawer.is-open .mobile-menu-panel {
+  transform: translateX(0%) !important;
+}
+
+.mobile-menu-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding-bottom: 20px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.mobile-menu-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.mobile-menu-logo-icon {
+  width: 28px !important;
+  height: 28px !important;
+  background-image: url(../image/mobile/Group.svg) !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.mobile-menu-brand-text {
+  display: flex !important;
+  flex-direction: column !important;
+  line-height: 1.15 !important;
+}
+
+.mobile-menu-brand-title {
+  font-family: "Asgard-Wide Medium", sans-serif !important;
+  font-size: 15px !important;
+  color: #ffffff !important;
+  letter-spacing: 0.04em !important;
+}
+
+.mobile-menu-brand-sub {
+  font-family: "Asgard-Wide Regular", sans-serif !important;
+  font-size: 9.5px !important;
+  color: rgba(255, 255, 255, 0.55) !important;
+  letter-spacing: 0.06em !important;
+}
+
+.mobile-menu-close-btn {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.mobile-menu-close-btn:hover,
+.mobile-menu-close-btn:active {
+  background: rgba(255, 255, 255, 0.2) !important;
+  transform: rotate(90deg) !important;
+}
+
+.mobile-menu-nav {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  margin: 28px 0 !important;
+}
+
+.mobile-menu-link {
+  display: flex !important;
+  flex-direction: column !important;
+  text-decoration: none !important;
+  padding: 13px 16px !important;
+  border-radius: 12px !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  transition: all 0.2s ease !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.mobile-menu-link:hover,
+.mobile-menu-link:active {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  transform: translateX(4px) !important;
+}
+
+.mobile-menu-link-num {
+  font-family: "SF Pro Display-Bold", sans-serif !important;
+  font-size: 11px !important;
+  color: rgba(223, 158, 89, 0.9) !important;
+  letter-spacing: 0.04em !important;
+  margin-bottom: 3px !important;
+}
+
+.mobile-menu-link-text {
+  font-family: "Asgard-Wide Medium", sans-serif !important;
+  font-size: 20px !important;
+  color: #ffffff !important;
+  line-height: 1.1 !important;
+}
+
+.mobile-menu-link-desc {
+  font-family: "SF Pro Display-Regular", sans-serif !important;
+  font-size: 12px !important;
+  color: rgba(255, 255, 255, 0.45) !important;
+  margin-top: 3px !important;
+}
+
+.mobile-menu-footer {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  padding-top: 20px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.mobile-menu-cta-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  padding: 15px 20px !important;
+  box-sizing: border-box !important;
+  background: #ffffff !important;
+  color: #111111 !important;
+  border-radius: 50px !important;
+  text-decoration: none !important;
+  font-family: "Asgard-Wide Medium", sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.15) !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.mobile-menu-cta-btn:hover,
+.mobile-menu-cta-btn:active {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25) !important;
+}
+
+.mobile-menu-tg-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  padding: 13px 20px !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 50px !important;
+  text-decoration: none !important;
+  font-family: "SF Pro Display-Regular", sans-serif !important;
+  font-size: 13px !important;
+  transition: all 0.2s ease !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.mobile-menu-tg-btn:hover,
+.mobile-menu-tg-btn:active {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  color: #ffffff !important;
+}
+
+/* Burger Button Micro-interactions */
+.graphic-3_826 {
+  cursor: pointer !important;
+  transition: transform 0.2s ease, opacity 0.2s ease !important;
+  user-select: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.graphic-3_826:hover {
+  opacity: 0.85 !important;
+  transform: scale(1.05) !important;
+}
+
+.graphic-3_826:active {
+  transform: scale(0.95) !important;
+}
+
+@media (min-width: 900px) {
+  .mobile-menu-drawer {
+    display: none !important;
+  }
+}
+

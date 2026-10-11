@@ -50,11 +50,11 @@
 
     // Mapping for desktop and mobile navigation targets
     const navMap = {
-      market: { desktop: '3_71', mobile: '3_504' },
-      calc: { desktop: '3_137', mobile: '3_570' },
-      tariffs: { desktop: '3_197', mobile: '3_630' },
-      faq: { desktop: '3_307', mobile: '3_740' },
-      form: { desktop: '3_364', mobile: '3_745' }
+      market: { desktop: '3_71', mobile: '3_525' },
+      calc: { desktop: '3_137', mobile: '3_588' },
+      tariffs: { desktop: '3_197', mobile: '3_647' },
+      faq: { desktop: '3_307', mobile: '3_695' },
+      form: { desktop: '3_364', mobile: 'mobile-lead-form' }
     };
 
     function scrollToSection(key) {
@@ -113,6 +113,110 @@
           scrollToSection(key);
         });
       }
+    });
+  }
+
+  /**
+   * Mobile Burger Menu Drawer Controller
+   */
+  function setupMobileBurger() {
+    const burgerBtn = document.getElementById('3_826');
+    const drawer = document.getElementById('mobile-menu-drawer');
+    const closeBtn = document.getElementById('mobile-menu-close-btn');
+    const backdrop = document.getElementById('mobile-menu-backdrop');
+    if (!burgerBtn || !drawer) return;
+
+    function openMenu() {
+      drawer.classList.add('is-open');
+      drawer.setAttribute('aria-hidden', 'false');
+      burgerBtn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      drawer.classList.remove('is-open');
+      drawer.setAttribute('aria-hidden', 'true');
+      burgerBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    burgerBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (drawer.classList.contains('is-open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    burgerBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (drawer.classList.contains('is-open')) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      }
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeMenu();
+      });
+    }
+
+    if (backdrop) {
+      backdrop.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeMenu();
+      });
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+        closeMenu();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= BREAKPOINT && drawer.classList.contains('is-open')) {
+        closeMenu();
+      }
+    }, { passive: true });
+
+    const mobileTargets = {
+      market: '3_525',
+      calc: '3_588',
+      tariffs: '3_647',
+      faq: '3_695',
+      form: 'mobile-lead-form'
+    };
+
+    drawer.querySelectorAll('[data-nav-target]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetKey = link.getAttribute('data-nav-target');
+        closeMenu();
+
+        const targetId = mobileTargets[targetKey];
+        if (!targetId) return;
+
+        setTimeout(() => {
+          const targetEl = document.getElementById(targetId);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (targetKey === 'form') {
+              setTimeout(() => {
+                const phoneInp = document.getElementById('mobile-phone');
+                if (phoneInp) phoneInp.focus();
+              }, 500);
+            }
+          }
+        }, 180);
+      });
     });
   }
 
@@ -1010,6 +1114,7 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     setupNavigation();
+    setupMobileBurger();
     setupCalculator();
     setupAccordion();
     setupLeadForm();
