@@ -693,6 +693,44 @@ body {
   white-space: nowrap !important;
 }
 
+/* Tariff Price Badges & Currency Wrap Protection */
+.text-3_660,
+.text-3_211,
+.text-3_241,
+.text-3_275 {
+  width: auto !important;
+  min-width: max-content !important;
+  height: auto !important;
+  white-space: nowrap !important;
+  display: inline-block !important;
+  line-height: 1.1 !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+.border-wrap-3_659,
+.border-wrap-3_210,
+.border-wrap-3_240,
+.border-wrap-3_274 {
+  width: auto !important;
+  height: auto !important;
+  align-self: center !important;
+  display: inline-flex !important;
+}
+
+.section-3_659,
+.frame-3_210,
+.frame-3_240,
+.frame-3_274 {
+  width: auto !important;
+  min-width: 136px !important;
+  height: auto !important;
+  padding: 8px 18px !important;
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 .text-3_190,
 .text-3_644 {
   transition: color 0.15s ease !important;
